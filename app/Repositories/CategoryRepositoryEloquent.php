@@ -4,7 +4,6 @@ namespace CodeDelivery\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Models\Category;
 use CodeDelivery\Validators\CategoryValidator;
 
@@ -14,6 +13,11 @@ use CodeDelivery\Validators\CategoryValidator;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
+
+    public function listsInArray(){
+        return $this->model->lists('name','id');
+    }
+
     /**
      * Specify Model class name
      *

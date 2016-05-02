@@ -21,7 +21,11 @@
         <tr>
             <th>{{ $category->id }}</th>
             <th>{{ $category->name }}</th>
-            <th></th>
+            <th>
+                <a href="{{ route('admin.categories.edit',['id'=>$category->id]) }}" class="btn btn-default btn-sm">
+                    Editar
+                </a>
+            </th>
         </tr>
         @endforeach
         </tbody>
