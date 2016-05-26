@@ -5,7 +5,6 @@ namespace CodeDelivery\Http\Controllers;
 use CodeDelivery\Repositories\CategoryRepository;
 use CodeDelivery\Repositories\ProductRepository;
 use CodeDelivery\Http\Requests;
-use CodeDelivery\Http\Requests\AdminCategoryRequest;
 use CodeDelivery\Http\Requests\AdminProductRequest;
 
 class ProductsController extends Controller
