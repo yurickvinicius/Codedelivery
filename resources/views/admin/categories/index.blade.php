@@ -18,15 +18,15 @@
 
         <tbody>
         @foreach($categories as $category)
-        <tr>
-            <th>{{ $category->id }}</th>
-            <th>{{ $category->name }}</th>
-            <th>
-                <a href="{{ route('admin.categories.edit',['id'=>$category->id]) }}" class="btn btn-default btn-sm">
-                    Editar
-                </a>
-            </th>
-        </tr>
+            <tr>
+                <td>{{ $category->id }}</td>
+                <td>{{ $category->name }}</td>
+                <td>
+                    <a href="{{ route('admin.categories.edit',['id'=>$category->id]) }}" class="btn btn-default btn-sm">
+                        Editar
+                    </a>
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>

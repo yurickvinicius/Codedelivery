@@ -23,6 +23,12 @@ class AdminClientRequest extends Request
      */
     public function rules()
     {
-
+        return [
+            'phone' => 'required|min:3',
+            'address' => 'required|min:3',
+            'city' => 'required|min:3',
+            'state' => 'required|min:2',
+            'zipcode' => 'required|min:3'
+        ];
     }
 }

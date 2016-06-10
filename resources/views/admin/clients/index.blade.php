@@ -4,7 +4,7 @@
     <div class="container">
         <h3>Clientes</h3>
 
-        <a href="#" class="btn btn-default">Novo Produto</a>
+        <a href="{{ route('admin.clients.create') }}" class="btn btn-default">Novo Cliente</a>
         <br><br>
 
         <table class="table table-bordered">
@@ -21,18 +21,18 @@
             <tbody>
             @foreach($clients as $client)
                 <tr>
-                    <th>{{ $client->id }}</th>
-                    <th></th>
-                    <th>{{ $client->city }}</th>
-                    <th>{{ $client->state }}</th>
-                    <th>
-                        <a href="#" class="btn btn-default btn-sm">
+                    <td>{{ $client->id }}</td>
+                    <td>{{ $client->user->name }}</td>
+                    <td>{{ $client->city }}</td>
+                    <td>{{ $client->state }}</td>
+                    <td>
+                        <a href="{{ route('admin.clients.edit',['id'=>$client->id]) }}" class="btn btn-default btn-sm">
                             Editar
                         </a>
                         <a href="#" class="btn btn-default btn-sm">
                             Remover
                         </a>
-                    </th>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
