@@ -12,7 +12,7 @@ class Order extends Model implements Transformable
 
     protected $fillable = [
         'client_id',
-        'user_develiveryman_id',
+        'user_deliveryman_id',
         'total',
         'status'
     ];
@@ -26,7 +26,7 @@ class Order extends Model implements Transformable
     }
 
     public function deliveryman(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_deliveryman_id', 'id');
     }
 
     public function products(){
