@@ -21,7 +21,7 @@ Route::get('test', function(){
     return $repository->all();
 });
 
-Route::group(['prefix' => 'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.'], function(){
+Route::group(['prefix' => 'admin', 'middleware'=>'auth.checkrole:admin', 'as'=>'admin.'], function(){
 
     Route::get('clients',['as'=>'clients.index', 'uses'=>'ClientsController@index']);
     Route::get('clients/create',['as'=>'clients.create', 'uses'=>'ClientsController@create']);
@@ -51,4 +51,10 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth.checkrole', 'as'=>'admin.
     Route::get('cupoms/edit/{id}',['as'=>'cupoms.edit', 'uses'=>'CupomsController@edit']);
     Route::post('cupoms/store/{id}',['as'=>'cupoms.store', 'uses'=>'CupomsController@store']);
 
+});
+
+Route::group(['prefix' => 'customer', 'middleware'=>'auth.checkrole:client', 'as' => 'customer.'], function(){
+    Route::get('order', ['as' => 'order.index', 'uses' => 'CheckoutController@index']);
+    Route::get('order/create', ['as' => 'order.create', 'uses' => 'CheckoutController@create']);
+    Route::post('order/store', ['as' => 'order.store', 'uses' => 'CheckoutController@store']);
 });

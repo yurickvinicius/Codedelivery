@@ -13,6 +13,13 @@ use CodeDelivery\Validators\ProductValidator;
  */
 class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
 {
+
+
+    public function listsInArray()
+    {
+        return $this->model->get(['id', 'name', 'price']);
+    }
+
     /**
      * Specify Model class name
      *
