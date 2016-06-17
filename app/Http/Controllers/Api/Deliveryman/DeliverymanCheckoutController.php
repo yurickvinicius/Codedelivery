@@ -40,11 +40,20 @@ class DeliverymanCheckoutController extends Controller
     }
 
     public function show($id){
-        $o = $this->repository->with(['client','items','cupom'])->find($id);
-        $o->items->each(function($items){
-            $items->product;
-        });
-        return $o;
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        return $this->repository->getByIdAndDeliveryman($id, $idDeliveryman);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+
+        $idDeliveryman = Authorizer::getResourceOwnerId();
+        $order = $this->service->updateStatus($id, $idDeliveryman, $request->get('status'));
+
+        if ($order) {
+            return $order;
+        }
+        abort(400, "Order não encontrado.");
     }
 
 }
