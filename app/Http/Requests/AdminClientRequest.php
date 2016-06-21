@@ -30,5 +30,6 @@ class AdminClientRequest extends Request
             'state' => 'required|min:2',
             'zipcode' => 'required|min:3'
         ];
+
     }
 }

@@ -7,7 +7,6 @@ use CodeDelivery\Http\Requests;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\UserRepository;
 use CodeDelivery\Services\OrderService;
-use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ClientCheckoutController extends Controller
@@ -16,6 +15,8 @@ class ClientCheckoutController extends Controller
     private $repository;
     private $userRepository;
     private $service;
+
+    private $with = ['client', 'cupom', 'items'];
 
     public function __construct(
         OrderRepository $repository,
@@ -32,30 +33,34 @@ class ClientCheckoutController extends Controller
     {
         $id = Authorizer::getResourceOwnerId();
         $clientId = $this->userRepository->find($id)->client->id;
-        $orders = $this->repository->with(['items'])->scopeQuery(function ($query) use($clientId){  //// recebe o proprio objeto (scopeQuery)
+        $orders = $this->repository
+            ->skipPresenter(false)
+            ->with($this->with)
+            ->scopeQuery(function ($query) use($clientId){  //// recebe o proprio objeto (scopeQuery)
             return $query->where('client_id', '=', $clientId);
         })->paginate();
 
         return $orders;
     }
 
-    public function store(Requests\AdminClientRequest $request)
+    public function store(Requests\CheckoutRequest $request)
     {
         $data = $request->all();
         $id = Authorizer::getResourceOwnerId();
         $clientId = $this->userRepository->find($id)->client->id;
         $data['client_id'] = $clientId;
         $o = $this->service->create($data);
-        $o = $this->repository->with('items')->find($o->id);
-        return $o;
+        return $this->repository
+            ->skipPresenter(false)
+            ->with($this->with)
+            ->find($o->id);
     }
 
     public function show($id){
-        $o = $this->repository->with(['client','items','cupom'])->find($id);
-        $o->items->each(function($items){
-            $items->product;
-        });
-        return $o;
+        return $this->repository
+            ->skipPresenter(false)
+            ->with($this->with)
+            ->find($id);
     }
 
 }
