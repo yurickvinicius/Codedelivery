@@ -26,7 +26,7 @@
             </tbody>
         </table>
 
+        {!! $orders->render() !!}
     </div>
 
-    {{ $orders->render() }}
 @endsection
