@@ -3,9 +3,17 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
+
+angular.module('starter.controllers',[]);
+angular.module('starter.services',[]);
+
 angular.module('starter', [
-    'ionic','starter.controllers','angular-oauth2'
+    'ionic','starter.controllers','starter.services','angular-oauth2', 'ngResource'
 ])
+
+.constant('appConfig',{
+    baseUrl: 'http://localhost:8000'
+})
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -25,10 +33,10 @@ angular.module('starter', [
   });
 })
     
-.config(function ($stateProvider,$urlRouterProvider,OAuthProvider,OAuthTokenProvider) {
+.config(function ($stateProvider,$urlRouterProvider,OAuthProvider,OAuthTokenProvider, appConfig) {
 
     OAuthProvider.configure({
-        baseUrl: 'http://localhost:8000',  /// pode ser https
+        baseUrl: appConfig.baseUrl,  /// pode ser https
         clientId: 'appid01',
         clientSecret: 'secret', // optional
         grantPath: '/oauth/access_token'
@@ -53,6 +61,35 @@ angular.module('starter', [
             controller: function ($scope) {
                 
             }
+        })
+        .state('client',{
+            abstract: true,
+            url: '/client',
+            template: '<ion-nav-view/>'
+        })
+        .state('client.checkout',{
+            cache: false,
+            url: '/checkout',
+            templateUrl: 'templates/client/checkout.html',
+            controller: 'ClientCheckoutCtrl'
+        })
+        .state('client.checkout_item_detail',{
+            url: '/checkout/detail:index',
+            templateUrl: 'templates/client/checkout-item-detail.html',
+            controller: 'ClientCheckoutDetailCtrl'
+        })
+        .state('client.checkout_successful',{
+            url: '/checkout/successful',
+            templateUrl: 'templates/client/checkout-successful.html',
+            controller: 'ClientCheckoutSuccessful'
+        })
+        .state('client.view_products',{
+            url: '/view_products',
+            templateUrl: 'templates/client/view-products.html',
+            controller: 'ClientViewProductCtrl'
         });
     ///$urlRouterProvider.otherwise('/'); ///add a stat 404
-});
+})
+    .service('cart', function(){
+        this.items = [];
+    });

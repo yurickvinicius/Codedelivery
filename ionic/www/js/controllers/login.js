@@ -1,4 +1,4 @@
-angular.module('starter.controllers',[])
+angular.module('starter.controllers') /// estou acessando o modulo starter.controllers ja existente
     .controller('LoginCtrl', [
         '$scope','OAuth','$ionicPopup','$state', function ($scope, OAuth, $ionicPopup, $state) {
 
