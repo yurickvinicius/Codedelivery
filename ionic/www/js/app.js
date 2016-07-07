@@ -12,7 +12,7 @@ angular.module('starter', [
 ])
 
 .constant('appConfig',{
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'http://192.168.0.255:8000'
 })
 
 .run(function($ionicPlatform) {
@@ -79,6 +79,7 @@ angular.module('starter', [
             controller: 'ClientCheckoutDetailCtrl'
         })
         .state('client.checkout_successful',{
+            cache: false,
             url: '/checkout/successful',
             templateUrl: 'templates/client/checkout-successful.html',
             controller: 'ClientCheckoutSuccessful'
@@ -88,7 +89,7 @@ angular.module('starter', [
             templateUrl: 'templates/client/view-products.html',
             controller: 'ClientViewProductCtrl'
         });
-    ///$urlRouterProvider.otherwise('/'); ///add a stat 404
+        $urlRouterProvider.otherwise('/login'); ///add a stat 404
 })
     .service('cart', function(){
         this.items = [];

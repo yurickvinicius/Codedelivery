@@ -5,6 +5,13 @@
     </div>
     <ion-content class="padding has-subheader">
         <ion-list>
+
+            <ion-item class="item-dark" ng-show="cupom.value != null">
+                <span class="badge badge-dark">- R$ {{cupom.value}}</span>
+                <strong>Cupom</strong>
+            </ion-item>
+
+
             <ion-item ng-repeat="o in items" ng-click="openProductDetail($index)">
                 <h2>{{o.name}}</h2>
                 <div class="row">
