@@ -12,7 +12,11 @@ angular.module('starter', [
 ])
 
 .constant('appConfig',{
+<<<<<<< HEAD
     baseUrl: 'http://192.168.0.192:8000'
+=======
+    baseUrl: 'http://192.168.0.255:8000'
+>>>>>>> 984ee90892bca22be34307837def1d388a656271
 })
 
 .run(function($ionicPlatform) {
@@ -89,6 +93,7 @@ angular.module('starter', [
             templateUrl: 'templates/client/view-products.html',
             controller: 'ClientViewProductCtrl'
         });
+<<<<<<< HEAD
     $urlRouterProvider.otherwise('/login');
 
     $provide.decorator('OAuthToken', ['$localStorage','$delegate', function($localStorage, $delegate){
@@ -123,6 +128,9 @@ angular.module('starter', [
         });
         return $delegate;
     }]);
+=======
+        $urlRouterProvider.otherwise('/login'); ///add a stat 404
+>>>>>>> 984ee90892bca22be34307837def1d388a656271
 })
     .service('cart', function(){
         this.items = [];

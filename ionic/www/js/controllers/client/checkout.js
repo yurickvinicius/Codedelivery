@@ -1,7 +1,12 @@
 angular.module('starter.controllers') /// estou acessando o modulo starter.controllers ja existente
     .controller('ClientCheckoutCtrl', [
+<<<<<<< HEAD
         '$scope','$state','$cart','Order','$ionicLoading','$ionicPopup','Cupom','$cordovaBarcodeScanner',
         function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom, $cordovaBarcodeScanner) {
+=======
+        '$scope','$state','$cart','Order','$ionicLoading','$ionicPopup','Cupom',
+        function ($scope, $state, $cart, Order, $ionicLoading, $ionicPopup, Cupom) {
+>>>>>>> 984ee90892bca22be34307837def1d388a656271
 
             var cart = $cart.get();
             $scope.cupom = cart.cupom;
@@ -48,6 +53,7 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
             };
 
             $scope.readBarCode = function () {
+<<<<<<< HEAD
                 $cordovaBarcodeScanner
                     .scan()
                     .then(function(barcodeData) {
@@ -58,6 +64,9 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
                             template: 'Não foi possivel ler o codigo de barras - Tente novamente'
                         });
                     });
+=======
+                getValueCupom(2791);
+>>>>>>> 984ee90892bca22be34307837def1d388a656271
             };
             
             $scope.removeCupom = function () {
