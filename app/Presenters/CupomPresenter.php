@@ -2,15 +2,15 @@
 
 namespace CodeDelivery\Presenters;
 
-use CodeDelivery\Transformers\ProductTransformer;
+use CodeDelivery\Transformers\CupomTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class ProductPresenter
+ * Class CupomPresenter
  *
  * @package namespace CodeDelivery\Presenters;
  */
-class ProductPresenter extends FractalPresenter
+class CupomPresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +19,6 @@ class ProductPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new ProductTransformer();
+        return new CupomTransformer();
     }
 }
