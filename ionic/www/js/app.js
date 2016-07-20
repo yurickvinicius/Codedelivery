@@ -6,17 +6,15 @@
 
 angular.module('starter.controllers',[]);
 angular.module('starter.services',[]);
+angular.module('starter.filters',[]);
 
 angular.module('starter', [
-    'ionic','starter.controllers','starter.services','angular-oauth2','ngResource','ngCordova'
+    'ionic','starter.controllers','starter.services','starter.filters',
+    'angular-oauth2','ngResource','ngCordova'
 ])
 
 .constant('appConfig',{
-<<<<<<< HEAD
-    baseUrl: 'http://192.168.0.192:8000'
-=======
-    baseUrl: 'http://192.168.0.255:8000'
->>>>>>> 984ee90892bca22be34307837def1d388a656271
+    baseUrl: 'http://localhost:8000'
 })
 
 .run(function($ionicPlatform) {
@@ -68,8 +66,22 @@ angular.module('starter', [
         })
         .state('client',{
             abstract: true,
+            cache: false,
             url: '/client',
-            template: '<ion-nav-view/>'
+            templateUrl: 'templates/client/menu.html',
+            controller: 'ClientMenuCtrl'
+        })
+        .state('client.order',{
+            cache: false,
+            url: '/order',
+            templateUrl: 'templates/client/order.html',
+            controller: 'ClientOrderCtrl'
+        })
+        .state('client.view-order',{
+            cache: false,
+            url: '/view-order/:id',
+            templateUrl: 'templates/client/view-order.html',
+            controller: 'ClientViewOrderCtrl'
         })
         .state('client.checkout',{
             cache: false,
@@ -92,8 +104,26 @@ angular.module('starter', [
             url: '/view_products',
             templateUrl: 'templates/client/view-products.html',
             controller: 'ClientViewProductCtrl'
+        })
+        .state('deliveryman',{
+            abstract: true,
+            cache: false,
+            url: '/deliveryman',
+            templateUrl: 'templates/deliveryman/menu.html',
+            controller: 'DeliverymanMenuCtrl'
+        })
+        .state('deliveryman.order',{
+            url: '/order',
+            templateUrl: 'templates/deliveryman/order.html',
+            controller: 'DeliverymanOrderProductCtrl'
+        })
+        .state('deliveryman.view-order',{
+            cache: false,
+            url: '/view-order/:id',
+            templateUrl: 'templates/deliveryman/view-order.html',
+            controller: 'DeliverymanViewOrderCtrl'
         });
-<<<<<<< HEAD
+
     $urlRouterProvider.otherwise('/login');
 
     $provide.decorator('OAuthToken', ['$localStorage','$delegate', function($localStorage, $delegate){
@@ -128,9 +158,7 @@ angular.module('starter', [
         });
         return $delegate;
     }]);
-=======
-        $urlRouterProvider.otherwise('/login'); ///add a stat 404
->>>>>>> 984ee90892bca22be34307837def1d388a656271
+        $urlRouterProvider.otherwise('/login');
 })
     .service('cart', function(){
         this.items = [];

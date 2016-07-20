@@ -11,7 +11,7 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
             $cart.clear();
             
             $scope.openListOrder = function () {
-                
+                $state.go('client.order')
             }
 
         }]);

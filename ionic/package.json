@@ -18,13 +18,10 @@
     {
       "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
       "id": "cordova-plugin-whitelist"
-<<<<<<< HEAD
     },
     {
       "locator": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
       "id": "phonegap-plugin-barcodescanner"
-=======
->>>>>>> 984ee90892bca22be34307837def1d388a656271
     }
   ],
   "cordovaPlatforms": [
