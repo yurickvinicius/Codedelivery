@@ -12,7 +12,7 @@ use CodeDelivery\Models\OrderItem;
 class OrderItemTransformer extends TransformerAbstract
 {
 
-    ///protected $defaultIncludes = ['product'];
+    protected $defaultIncludes = ['product'];
 
     /**
      * Transform the \OrderItem entity
@@ -31,9 +31,9 @@ class OrderItemTransformer extends TransformerAbstract
             'updated_at' => $model->updated_at
         ];
     }
-/*
+
     public function includeProduct(OrderItem $model){
-        return $this->item($model->product(), new ProductTransformer());
+        return $this->item($model->product, new ProductTransformer());
     }
-*/
+
 }

@@ -1,7 +1,7 @@
 angular.module('starter.controllers') /// estou acessando o modulo starter.controllers ja existente
     .controller('ClientOrderCtrl', [
-        '$scope','$state','$ionicLoading', 'Order',
-        function ($scope, $state, $ionicLoading, Order) {
+        '$scope','$state','$ionicLoading', 'ClientOrder',
+        function ($scope, $state, $ionicLoading, ClientOrder) {
 
             $scope.items = [];
 
@@ -23,7 +23,7 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
             };
 
             function getOrders () {
-                return Order.query({
+                return ClientOrder.query({
                     id:null,
                     orderBy: 'created_at',
                     sortedBy: 'desc'

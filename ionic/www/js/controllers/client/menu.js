@@ -1,4 +1,4 @@
-angular.module('starter.controllers') /// estou acessando o modulo starter.controllers ja existente
+angular.module('starter.controllers') 
     .controller('ClientMenuCtrl', [
         '$scope', 'UserData',
         function ($scope, UserData) {

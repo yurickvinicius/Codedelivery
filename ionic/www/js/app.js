@@ -115,7 +115,7 @@ angular.module('starter', [
         .state('deliveryman.order',{
             url: '/order',
             templateUrl: 'templates/deliveryman/order.html',
-            controller: 'DeliverymanOrderProductCtrl'
+            controller: 'DeliverymanOrderCtrl'
         })
         .state('deliveryman.view-order',{
             cache: false,
