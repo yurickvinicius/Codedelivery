@@ -10,7 +10,7 @@ angular.module('starter.filters',[]);
 
 angular.module('starter', [
     'ionic','starter.controllers','starter.services','starter.filters',
-    'angular-oauth2','ngResource','ngCordova'
+    'angular-oauth2','ngResource','ngCordova','uiGmapgoogle-maps'
 ])
 
 .constant('appConfig',{
@@ -82,6 +82,12 @@ angular.module('starter', [
             url: '/view-order/:id',
             templateUrl: 'templates/client/view-order.html',
             controller: 'ClientViewOrderCtrl'
+        })
+        .state('client.view-delivery',{
+            cache: false,
+            url: '/view-delivery/:id',
+            templateUrl: 'templates/client/view-delivery.html',
+            controller: 'ClientViewDeliveryCtrl'
         })
         .state('client.checkout',{
             cache: false,

@@ -1,7 +1,7 @@
 angular.module('starter.controllers') /// estou acessando o modulo starter.controllers ja existente
     .controller('ClientOrderCtrl', [
-        '$scope','$state','$ionicLoading', 'ClientOrder',
-        function ($scope, $state, $ionicLoading, ClientOrder) {
+        '$scope','$state','$ionicLoading', '$ionicActionSheet', 'ClientOrder',
+        function ($scope, $state, $ionicLoading, $ionicActionSheet, ClientOrder) {
 
             $scope.items = [];
 
@@ -20,6 +20,30 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
 
             $scope.openOrderDetail = function(order){
                 $state.go('client.view-order', {id: order.id});
+            };
+
+            $scope.showActionSheet = function(order){
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: 'Ver Detalhes'},
+                        {text: 'Ver Entrega'}
+                    ],
+                    titleText: 'O que fazer?',
+                    cancelText: 'Cancelar',
+                    cancel:function(){
+                        // made something
+                    },
+                    buttonClicked:function(index){
+                        switch (index){
+                            case 0:
+                                $state.go('client.view-order',{id:order.id});
+                                break;
+                            case 1:
+                                $state.go('client.view-delivery',{id:order.id});
+                                break;
+                        }
+                    }
+                });
             };
 
             function getOrders () {
