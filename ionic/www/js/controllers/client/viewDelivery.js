@@ -1,15 +1,15 @@
 angular.module('starter.controllers') 
     .controller('ClientViewDeliveryCtrl', [
-        '$scope','$stateParams','ClientOrder','$ionicLoading','$ionicPopup','UserData',
-        function ($scope, $stateParams, ClientOrder, $ionicLoading, $ionicPopup, UserData) {
+        '$scope','$stateParams','ClientOrder','$ionicLoading','$ionicPopup','UserData','$pusher','$window',
+        function ($scope, $stateParams,ClientOrder,$ionicLoading,$ionicPopup,UserData,$pusher,$window) {
             var iconUrl = 'http://maps.google.com/mapfiles/kml/pal3';
             $scope.order = {};
             $scope.map = {
                 center: {
-                    latitude: -23.444,
-                    longitude: -46.444
+                    latitude: -0,
+                    longitude: -0
                 },
-                zoom: 12
+                zoom: 16
             };
 
             $scope.markers = [];
@@ -22,7 +22,7 @@ angular.module('starter.controllers')
                 $scope.order = data.data;
                 $ionicLoading.hide();
                 if(parseInt($scope.order.status, 10) == 1){
-                    initMarkers();
+                    initMarkers($scope.order);
                 }else{
                     $ionicPopup.alert({
                         title: 'Advertência',
@@ -39,7 +39,13 @@ angular.module('starter.controllers')
                 $state.go('client.checkout');
             };
 
-            function initMarkers(){
+            $scope.$watch('markers.length',function(value){
+                if(value == 2){
+                    createBounds();
+                }
+            });
+
+            function initMarkers(order){
 
                 var client = UserData.get().client.data,
                     address = client.zipcode + ', ' +
@@ -47,6 +53,7 @@ angular.module('starter.controllers')
                         client.city + ' - ' +
                         client.state;
                 createMarkerClient(address);
+                watchPositionDeliveryman(order.hash);
             }
 
             function createMarkerClient(address){
@@ -68,7 +75,7 @@ angular.module('starter.controllers')
                             options: {
                                 title: 'Local de entrega',
                                 icon: iconUrl + '/icon23.png'
-                            }
+                            },
                         });
                     }else{
                         $ionicPopup.alert({
@@ -76,7 +83,59 @@ angular.module('starter.controllers')
                             template: 'Não foi possivel encontrar seu endereço!'
                         });
                     }
-                })
+                });
+            }
+
+            function watchPositionDeliveryman(channel){
+                var pusher = $pusher($window.client),
+                    channel = pusher.subscribe(channel);
+
+                channel.bind('CodeDelivery\\Events\\GetLocationDeliveryman', function(data){
+                    var lat = data.geo.lat, long = data.geo.long;
+
+                    if($scope.markers.length == 1 || $scope.markers.length == 0){
+                        $scope.markers.push({
+                            id: 'entregador',
+                            coords: {
+                                latitude: lat,
+                                longitude: long
+                            },
+                            options: {
+                                title: 'Entregador',
+                                icon: iconUrl + '/icon0.png'
+                            }
+                        });
+                        return;
+                    }
+                    for(var key in $scope.markers){
+                        if($scope.markers[key].id == 'entregador'){
+                            $scope.markers[key].coords = {
+                                latitude: lat,
+                                longitude: long
+                            }
+                        }
+                    }
+
+                });
+            }
+
+            function createBounds(){
+                var bounds = new google.maps.LatLngBounds(),
+                    latlng;
+                angular.forEach($scope.markers,function(value){
+                    latlng = new google.maps.LatLng(Number(value.coords.latitude),Number(value.coords.longitude));
+                    bounds.extend(latlng);
+                });
+                $scope.map.bounds = {
+                    northeast: {
+                        latitude: bounds.getNorthEast().lat(),
+                        longitude: bounds.getNorthEast().lng()
+                    },
+                    southwest: {
+                        latitude: bounds.getSouthWest().lat(),
+                        longitude: bounds.getSouthWest().lng()
+                    }
+                }
             }
 
         }]);

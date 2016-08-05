@@ -10,14 +10,18 @@ angular.module('starter.filters',[]);
 
 angular.module('starter', [
     'ionic','starter.controllers','starter.services','starter.filters',
-    'angular-oauth2','ngResource','ngCordova','uiGmapgoogle-maps'
+    'angular-oauth2','ngResource','ngCordova','uiGmapgoogle-maps','pusher-angular'
 ])
 
 .constant('appConfig',{
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'http://localhost:8000',
+    pusherKey: 'c76cce8665a3cf03100d'
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$window,appConfig) {
+
+  $window.client = new Pusher(appConfig.pusherKey);
+
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
