@@ -1,16 +1,10 @@
 angular.module('starter.controllers') 
     .controller('ClientViewDeliveryCtrl', [
-        '$scope','$stateParams','ClientOrder','$ionicLoading','$ionicPopup','UserData','$pusher','$window',
-        function ($scope, $stateParams,ClientOrder,$ionicLoading,$ionicPopup,UserData,$pusher,$window) {
+        '$scope','$stateParams','ClientOrder','$ionicLoading','$ionicPopup','UserData','$pusher','$window','$map',
+        function ($scope, $stateParams,ClientOrder,$ionicLoading,$ionicPopup,UserData,$pusher,$window,$map) {
             var iconUrl = 'http://maps.google.com/mapfiles/kml/pal3';
             $scope.order = {};
-            $scope.map = {
-                center: {
-                    latitude: -0,
-                    longitude: -0
-                },
-                zoom: 16
-            };
+            $scope.map = $map;
 
             $scope.markers = [];
 
@@ -138,4 +132,17 @@ angular.module('starter.controllers')
                 }
             }
 
-        }]);
+        }])
+    .controller('CvdControlDescentralize',['$scope','$map', function($scope, $map){
+        $scope.map = $map;
+        $scope.fit = function(){
+            $scope.map.fit = !$scope.map.fit;
+        }
+    }])
+    .controller('CvdControlReload',['$scope','$window','$timeout',function($scope,$window,$timeout){
+        $scope.reload = function(){
+            $timeout(function(){
+                $window.location.reload(true);
+            },100)
+        }
+    }]);

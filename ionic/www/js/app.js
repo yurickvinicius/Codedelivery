@@ -14,7 +14,7 @@ angular.module('starter', [
 ])
 
 .constant('appConfig',{
-    baseUrl: 'http://localhost:8000',
+    baseUrl: 'http://192.168.0.35:8000',
     pusherKey: 'c76cce8665a3cf03100d'
 })
 

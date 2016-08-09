@@ -18,12 +18,14 @@ angular.module('starter.controllers') /// estou acessando o modulo starter.contr
                         UserData.set(data.data);
                         $state.go('client.checkout');
                     }, function (responseError) {
-                        UserData.set(null);
-                        OAuthToken.removeToken();
+
                         $ionicPopup.alert({
                             title: 'Advertência',
                             template: 'Login e/ou senha inválidos'
                         });
+
+                        UserData.set(null);
+                        OAuthToken.removeToken();
                         console.debug(responseError);
                     });
             }
