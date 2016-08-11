@@ -1,7 +1,8 @@
 angular.module('starter.controllers') 
     .controller('ClientViewDeliveryCtrl', [
-        '$scope','$stateParams','ClientOrder','$ionicLoading','$ionicPopup','UserData','$pusher','$window','$map',
-        function ($scope, $stateParams,ClientOrder,$ionicLoading,$ionicPopup,UserData,$pusher,$window,$map) {
+        '$scope','$stateParams','ClientOrder','$ionicLoading',
+        '$ionicPopup','UserData','$pusher','$window','$map','uiGmapGoogleMapApi',
+        function ($scope, $stateParams,ClientOrder,$ionicLoading,$ionicPopup,UserData,$pusher,$window,$map,uiGmapGoogleMapApi) {
             var iconUrl = 'http://maps.google.com/mapfiles/kml/pal3';
             $scope.order = {};
             $scope.map = $map;
@@ -12,9 +13,15 @@ angular.module('starter.controllers')
                 template: 'Carregando...'
             });
 
+            uiGmapGoogleMapApi.then(function(maps){
+                $ionicLoading.hide();
+            },function(error){
+                $ionicLoading.hide();
+            });
+
             ClientOrder.get({id: $stateParams.id, include: "items,cupom"}, function (data) {
                 $scope.order = data.data;
-                $ionicLoading.hide();
+
                 if(parseInt($scope.order.status, 10) == 1){
                     initMarkers($scope.order);
                 }else{
@@ -23,8 +30,6 @@ angular.module('starter.controllers')
                         template: 'Pedido não esta em status de entrega'
                     });
                 }
-            }, function(dataError){
-                $ionicLoading.hide();
             });
 
             $scope.addItem = function (item){

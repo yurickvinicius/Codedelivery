@@ -35,6 +35,6 @@
     "commit": "a65587d80b27e26f15a7cb250337358075a9ad54"
   },
   "_source": "https://github.com/pusher/pusher-angular.git",
-  "_target": "^0.1.9",
+  "_target": "~0.1.8",
   "_originalSource": "pusher-angular"
 }

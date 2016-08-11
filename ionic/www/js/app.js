@@ -9,12 +9,12 @@ angular.module('starter.services',[]);
 angular.module('starter.filters',[]);
 
 angular.module('starter', [
-    'ionic','starter.controllers','starter.services','starter.filters',
+    'ionic','ionic.service.core','starter.controllers','starter.services','starter.filters',
     'angular-oauth2','ngResource','ngCordova','uiGmapgoogle-maps','pusher-angular'
 ])
 
 .constant('appConfig',{
-    baseUrl: 'http://192.168.0.35:8000',
+    baseUrl: 'http://localhost:8000',
     pusherKey: 'c76cce8665a3cf03100d'
 })
 
@@ -36,6 +36,14 @@ angular.module('starter', [
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+      Ionic.io();
+      var push = new Ionic.Push({
+          debug: true
+      });
+      push.register(function(token){
+
+      })
   });
 })
     

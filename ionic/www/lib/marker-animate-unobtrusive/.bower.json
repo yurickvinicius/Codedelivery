@@ -39,6 +39,6 @@
     "commit": "07b6e4598bb89cd07af1b07092493bbbb6fa2940"
   },
   "_source": "https://github.com/terikon/marker-animate-unobtrusive.git",
-  "_target": "^0.2.8",
+  "_target": "~0.2.7",
   "_originalSource": "marker-animate-unobtrusive"
 }
